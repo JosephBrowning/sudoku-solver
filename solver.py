@@ -5,8 +5,14 @@ def removeChar(s ,index):
     return s[:index] + s[index+1:]
 
 def elimPossible(row, col, val):
+    square = str(arr[row,col])
     for i in range(9):
-        pass
+        rowCheck = str(arr[i,col])
+        colCheck = str(arr[row,i])
+        if rowCheck.endswith('0') and rowCheck.find(val):
+            pass
+        if colCheck.endswith('0') and colCheck.find(val):
+            pass
     pass
 
 def printTest():
