@@ -10,9 +10,11 @@ def elimPossible(row, col, val):
         rowCheck = str(arr[i,col])
         colCheck = str(arr[row,i])
         if rowCheck.endswith('0') and rowCheck.find(val) != -1:
-            pass
+            newSquare = removeChar(rowCheck,rowCheck.find(val))
+            arr[i,col] = int(newSquare)
         if colCheck.endswith('0') and colCheck.find(val) != -1:
-            pass
+            newSquare = removeChar(colCheck,colCheck.find(val))
+            arr[row,i] = int(newSquare)
     pass
 
 def printTest():
