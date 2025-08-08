@@ -9,9 +9,9 @@ def elimPossible(row, col, val):
     for i in range(9):
         rowCheck = str(arr[i,col])
         colCheck = str(arr[row,i])
-        if rowCheck.endswith('0') and rowCheck.find(val):
+        if rowCheck.endswith('0') and rowCheck.find(val) != -1:
             pass
-        if colCheck.endswith('0') and colCheck.find(val):
+        if colCheck.endswith('0') and colCheck.find(val) != -1:
             pass
     pass
 
