@@ -11,6 +11,8 @@ i = 0
 j = 0
 possibleVals = '123456789'
 
+def removeChar(s ,index):
+    return s[:index] + s[index+1:]
 
 def elimPossible(row, col, val):
     for i in range(9):
@@ -35,14 +37,17 @@ printTest()
 #solve
 
 while solved != 81:
-    for i in range(9):
-        for j in range(9):
+    for row in range(9):
+        for col in range(9):
             square = str(arr[i][j])
             if len(square) > 1:
                 if square.endswith('0') == False and len(square) == 2:
                     #confirmed square found, now remove from possible, change len to 1 and add 1 to solved
+                    elimPossible(row, col, square[0])
                     pass
                 if square.endswith('0') == True and len(square) == 2:
                     #unconfirmed square has only one possible, confirm it
+                    
+                    elimPossible(row,col,square[0])
                     pass
             
