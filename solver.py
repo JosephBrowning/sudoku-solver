@@ -45,7 +45,6 @@ if __name__ == '__main__':
     print(str(arr[0][0])[0])
     printTest()
 
-
     #solve
 
     while solved != 81:
@@ -56,10 +55,10 @@ if __name__ == '__main__':
                     if square.endswith('0') == False and len(square) == 2:
                         #confirmed square found, now remove from possible, change len to 1 and add 1 to solved
                         elimPossible(row, col, square[0])
-                        pass
+                        # make it len 1
                     if square.endswith('0') == True and len(square) == 2:
                         #unconfirmed square has only one possible, confirm it
                         
                         elimPossible(row,col,square[0])
-                        pass
+                        #make it len 1
                 
