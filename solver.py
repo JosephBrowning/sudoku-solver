@@ -15,7 +15,7 @@ def elimPossible(row, col, val):
         if colCheck.endswith('0') and colCheck.find(val) != -1:
             newSquare = removeChar(colCheck,colCheck.find(val))
             arr[row,i] = int(newSquare)
-    pass
+    
 
 def printTest():
     print(arr)
@@ -43,7 +43,7 @@ if __name__ == '__main__':
                 arr[i][j] = puzzle[i][j] + puzzle[i][j]
     #print(arr)
     print(str(arr[0][0])[0])
-    printTest()
+    #printTest()
 
     #solve
 
