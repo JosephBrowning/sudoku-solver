@@ -4,6 +4,9 @@ import numpy as np
 def removeChar(s ,index):
     return s[:index] + s[index+1:]
 
+def checkPosition(row, col):
+    pass
+
 def elimPossible(row, col, val):
     square = str(arr[row,col])
     for i in range(9):
