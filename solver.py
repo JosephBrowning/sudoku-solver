@@ -30,15 +30,20 @@ def checkPosition(row, col):
 
 def elimPossible(row, col, val):
     square = str(arr[row,col])
+    position = checkPosition(row, col)
     for i in range(9):
         rowCheck = str(arr[i,col])
         colCheck = str(arr[row,i])
+        #check rows and colemns
         if rowCheck.endswith('0') and rowCheck.find(val) != -1:
             newSquare = removeChar(rowCheck,rowCheck.find(val))
             arr[i,col] = int(newSquare)
         if colCheck.endswith('0') and colCheck.find(val) != -1:
             newSquare = removeChar(colCheck,colCheck.find(val))
             arr[row,i] = int(newSquare)
+
+        #check 3x3 areas
+
     
 
 def printTest():
@@ -71,28 +76,32 @@ if __name__ == '__main__':
 
     #solve
 
-    while solved != 81:
-        for row in range(9):
-            for col in range(9):
-                square = str(arr[i][j])
-                if len(square) > 1:
-                    if square.endswith('0') == False and len(square) == 2:
-                        #confirmed square found, now remove from possible, change len to 1 and add 1 to solved
-                        elimPossible(row, col, square[0])
+    # while solved != 81:
+    #     for row in range(9):
+    #         for col in range(9):
+    #             square = str(arr[i][j])
+    #             if len(square) > 1:
+    #                 if square.endswith('0') == False and len(square) == 2:
+    #                     #confirmed square found, now remove from possible, change len to 1 and add 1 to solved
+    #                     elimPossible(row, col, square[0])
 
-                        # make it len 1
-                        arr[i][j] = int(square[0])
+    #                     # make it len 1
+    #                     arr[i][j] = int(square[0])
                         
-                        solved = solved + 1
-                    if square.endswith('0') == True and len(square) == 2:
-                        #unconfirmed square has only one possible, confirm it
+    #                     solved = solved + 1
+    #                 if square.endswith('0') == True and len(square) == 2:
+    #                     #unconfirmed square has only one possible, confirm it
                         
-                        elimPossible(row,col,square[0])
+    #                     elimPossible(row,col,square[0])
 
-                        # make it len 1
-                        arr[i][j] = int(square[0])
+    #                     # make it len 1
+    #                     arr[i][j] = int(square[0])
 
-                        solved = solved + 1
+    #                     solved = solved + 1
 
+    # printTest()
+
+   # printTest()
+    elimPossible(1,2,'8')
     printTest()
                 
