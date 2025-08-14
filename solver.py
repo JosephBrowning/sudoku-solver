@@ -5,7 +5,28 @@ def removeChar(s ,index):
     return s[:index] + s[index+1:]
 
 def checkPosition(row, col):
-    pass
+    if 0 <= row <= 2:
+        if 0 <= col <= 2:
+            return 0
+        elif 3 <= col <= 5:
+            return 1
+        elif 6 <= col <= 8:
+            return 2
+    elif 3 <= row <= 5:
+        if 0 <= col <= 2:
+            return 3
+        elif 3 <= col <= 5:
+            return 4
+        elif 6 <= col <= 8:
+            return 5
+    elif 3 <= row <= 5:
+        if 0 <= col <= 2:
+            return 6
+        elif 3 <= col <= 5:
+            return 7
+        elif 6 <= col <= 8:
+            return 8
+    
 
 def elimPossible(row, col, val):
     square = str(arr[row,col])
