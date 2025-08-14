@@ -31,10 +31,11 @@ def checkPosition(row, col):
 def elimPossible(row, col, val):
     square = str(arr[row,col])
     position = checkPosition(row, col)
+
+    #check rows and colemns
     for i in range(9):
         rowCheck = str(arr[i,col])
         colCheck = str(arr[row,i])
-        #check rows and colemns
         if rowCheck.endswith('0') and rowCheck.find(val) != -1:
             newSquare = removeChar(rowCheck,rowCheck.find(val))
             arr[i,col] = int(newSquare)
@@ -42,10 +43,25 @@ def elimPossible(row, col, val):
             newSquare = removeChar(colCheck,colCheck.find(val))
             arr[row,i] = int(newSquare)
 
-        #check 3x3 areas
-
-    
-
+    #check 3x3 areas
+    if position == 0:
+        pass
+    elif position == 1:
+        pass
+    elif position == 2:
+        pass
+    elif position == 3:
+        pass
+    elif position == 4:
+        pass
+    elif position == 5:
+        pass
+    elif position == 6:
+        pass
+    elif position == 7:
+        pass
+    elif position == 8:
+        pass
 def printTest():
     print(arr)
 
@@ -101,7 +117,4 @@ if __name__ == '__main__':
 
     # printTest()
 
-   # printTest()
-    elimPossible(1,2,'8')
-    printTest()
-                
+
