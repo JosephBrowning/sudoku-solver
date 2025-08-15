@@ -27,8 +27,10 @@ def getBounds(row, col):
         elif 6 <= col <= 8:
             return [[6,8],[6,8]]
     
-def elimArea(stardBound, endBound, val):
-    pass
+def elimArea(rowBound, colBound, val):
+    for row in range(rowBound[0],rowBound[1]):
+        for col in range(colBound[0],colBound[1]):
+            pass
 
 def elimPossible(row, col, val):
     square = str(arr[row,col])
