@@ -30,7 +30,10 @@ def getBounds(row, col):
 def elimArea(rowBound, colBound, val):
     for row in range(rowBound[0],rowBound[1]):
         for col in range(colBound[0],colBound[1]):
-            pass
+            squareCheck = str(arr[row,col])
+            if squareCheck.endswith('0') and squareCheck.find(val) != -1:
+                newSquare = removeChar(squareCheck, squareCheck.find(val))
+                arr[row,col] = int(newSquare)
 
 def elimPossible(row, col, val):
     square = str(arr[row,col])
