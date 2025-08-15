@@ -4,33 +4,35 @@ import numpy as np
 def removeChar(s ,index):
     return s[:index] + s[index+1:]
 
-def checkPosition(row, col):
+def getBounds(row, col):
     if 0 <= row <= 2:
         if 0 <= col <= 2:
-            return 0
+            return [[0,2],[0,2]]
         elif 3 <= col <= 5:
-            return 1
+            return [[0,2],[3,5]]
         elif 6 <= col <= 8:
-            return 2
+            return [[0,2],[6,8]]
     elif 3 <= row <= 5:
         if 0 <= col <= 2:
-            return 3
+            return [[3,5],[0,2]]
         elif 3 <= col <= 5:
-            return 4
+            return [[3,5],[3,5]]
         elif 6 <= col <= 8:
-            return 5
-    elif 3 <= row <= 5:
+            return [[3,5],[6,8]]
+    elif 6 <= row <= 8:
         if 0 <= col <= 2:
-            return 6
+            return [[6,8],[0,2]]
         elif 3 <= col <= 5:
-            return 7
+            return [[6,8],[3,5]]
         elif 6 <= col <= 8:
-            return 8
+            return [[6,8],[6,8]]
     
+def elimArea(stardBound, endBound, val):
+    pass
 
 def elimPossible(row, col, val):
     square = str(arr[row,col])
-    position = checkPosition(row, col)
+    
 
     #check rows and colemns
     for i in range(9):
@@ -44,24 +46,9 @@ def elimPossible(row, col, val):
             arr[row,i] = int(newSquare)
 
     #check 3x3 areas
-    if position == 0:
-        pass
-    elif position == 1:
-        pass
-    elif position == 2:
-        pass
-    elif position == 3:
-        pass
-    elif position == 4:
-        pass
-    elif position == 5:
-        pass
-    elif position == 6:
-        pass
-    elif position == 7:
-        pass
-    elif position == 8:
-        pass
+    bounds = getBounds(row, col)
+    elimArea(bounds[0], bounds[1], val)
+
 def printTest():
     print(arr)
 
