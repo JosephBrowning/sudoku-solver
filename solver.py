@@ -83,30 +83,37 @@ if __name__ == '__main__':
     #printTest()
 
     #solve
-
+    prevSolved = -1
+    iterations = 0
     # while solved != 81:
-    #     for row in range(9):
-    #         for col in range(9):
-    #             square = str(arr[i][j])
-    #             if len(square) > 1:
-    #                 if square.endswith('0') == False and len(square) == 2:
-    #                     #confirmed square found, now remove from possible, change len to 1 and add 1 to solved
-    #                     elimPossible(row, col, square[0])
+    while solved != prevSolved:
+        iterations = iterations + 1
+        prevSolved = solved
+        for row in range(9):
+            for col in range(9):
+                square = str(arr[row][col])
+                if len(square) > 1:
+                    if square.endswith('0') == False and len(square) == 2:
+                        #confirmed square found, now remove from possible, change len to 1 and add 1 to solved
+                        elimPossible(row, col, square[0])
 
-    #                     # make it len 1
-    #                     arr[i][j] = int(square[0])
+                        # make it len 1
+                        arr[row][col] = int(square[0])
                         
-    #                     solved = solved + 1
-    #                 if square.endswith('0') == True and len(square) == 2:
-    #                     #unconfirmed square has only one possible, confirm it
+                        solved = solved + 1
+                    if square.endswith('0') == True and len(square) == 2:
+                        #unconfirmed square has only one possible, confirm it
                         
-    #                     elimPossible(row,col,square[0])
+                        elimPossible(row,col,square[0])
 
-    #                     # make it len 1
-    #                     arr[i][j] = int(square[0])
+                        # make it len 1
+                        arr[row][col] = int(square[0])
 
-    #                     solved = solved + 1
+                        solved = solved + 1
 
-    # printTest()
+
+    printTest()
+    print(solved)
+    print(iterations)
 
 
