@@ -28,8 +28,9 @@ def getBounds(row, col):
             return [[6,8],[6,8]]
     
 def elimArea(rowBound, colBound, val):
-    for row in range(rowBound[0],rowBound[1]):
-        for col in range(colBound[0],colBound[1]):
+    # print(rowBound, colBound)
+    for row in range(rowBound[0],rowBound[1]+1):
+        for col in range(colBound[0],colBound[1]+1):
             squareCheck = str(arr[row,col])
             if squareCheck.endswith('0') and squareCheck.find(val) != -1:
                 newSquare = removeChar(squareCheck, squareCheck.find(val))
@@ -111,7 +112,9 @@ if __name__ == '__main__':
 
                         solved = solved + 1
 
-
+    # square = str(arr[7][1])
+    # elimPossible(7,1,square[0])
+    # arr[7][1] = int(square[0])
     printTest()
     print(solved)
     print(iterations)
