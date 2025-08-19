@@ -94,15 +94,7 @@ if __name__ == '__main__':
             for col in range(9):
                 square = str(arr[row][col])
                 if len(square) > 1:
-                    if square.endswith('0') == False and len(square) == 2:
-                        #confirmed square found, now remove from possible, change len to 1 and add 1 to solved
-                        elimPossible(row, col, square[0])
-
-                        # make it len 1
-                        arr[row][col] = int(square[0])
-                        
-                        solved = solved + 1
-                    if square.endswith('0') == True and len(square) == 2:
+                    if len(square) == 2:
                         #unconfirmed square has only one possible, confirm it
                         
                         elimPossible(row,col,square[0])
@@ -111,6 +103,23 @@ if __name__ == '__main__':
                         arr[row][col] = int(square[0])
 
                         solved = solved + 1
+                    # if square.endswith('0') == False and len(square) == 2:
+                    #     #confirmed square found, now remove from possible, change len to 1 and add 1 to solved
+                    #     elimPossible(row, col, square[0])
+
+                    #     # make it len 1
+                    #     arr[row][col] = int(square[0])
+                        
+                    #     solved = solved + 1
+                    # if square.endswith('0') == True and len(square) == 2:
+                    #     #unconfirmed square has only one possible, confirm it
+                        
+                    #     elimPossible(row,col,square[0])
+
+                    #     # make it len 1
+                    #     arr[row][col] = int(square[0])
+
+                    #     solved = solved + 1
 
     # square = str(arr[7][1])
     # elimPossible(7,1,square[0])
