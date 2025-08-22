@@ -60,7 +60,7 @@ def printTest():
 
 if __name__ == '__main__':
 
-    f = open("testeasy20.txt", 'r')
+    f = open("testmedium.txt", 'r')
 
     solved = 0
     puzzle = [ line.split() for line in f]
