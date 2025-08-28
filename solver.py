@@ -1,5 +1,58 @@
 import numpy as np
 
+def giveGuessIndex(arr):
+    tempAns = '1234567890'
+    ans = (0,5)
+    for row in range(9):
+        for col in range(9):
+            square = str(arr[row][col])
+            if len(square) == 3 or len(square) == 2:
+                ans = (row,col)
+                return ans
+            elif len(square) < len(tempAns) and len(square) >= 2:
+                ans = (row,col)
+    return ans
+
+def Guess(iterations, prevSolved, solved, arr):
+    originalSave = arr.copy()
+    #find guess with smallest len
+    #  min(arr, key=lambda x : len(str(x)))
+    #  attempt = 
+    guessIndex = giveGuessIndex(arr)
+    square = str(arr[guessIndex[0]][guessIndex[1]])
+    newSquare = removeChar(square,0)
+    print(guessIndex, guessIndex[0], guessIndex[1])
+    print(len(newSquare))
+    printTest()
+    print('solved:', solved)
+    arr[guessIndex[0],guessIndex[1]] = int(newSquare)
+    #start guessing
+    while solved != 81:
+        iterations = iterations + 1
+        prevSolved = solved
+        for row in range(9):
+            for col in range(9):
+                square = str(arr[row][col])
+                if len(square) > 1:
+                    if len(square) == 2:
+                        #unconfirmed square has only one possible, confirm it
+                        
+                        elimPossible(row,col,square[0])
+
+                        # make it len 1
+                        arr[row][col] = int(square[0])
+
+                        solved = solved + 1
+                elif len(square) < 1:
+                    #need to make it so the orignal save doesn't have the faulty guess
+                    #uhh mabye put call to guess here so that it doesn't have to do another iteration
+                    arr = originalSave
+
+                    arr, solved = Guess(iterations, prevSolved, solved, arr)
+                    return arr, solved
+        if solved == prevSolved:
+            arr, solved = Guess(iterations, prevSolved, solved, arr)
+    return arr, solved
 
 def removeChar(s ,index):
     return s[:index] + s[index+1:]
@@ -128,4 +181,6 @@ if __name__ == '__main__':
     print(solved)
     print(iterations)
 
+    arr, solved = Guess(iterations,prevSolved,solved, arr)
+    printTest()
 
