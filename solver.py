@@ -64,24 +64,27 @@ def Guess(prevSolved, solved, arr):
                 return arr, solved
             
             arr[guessIndex[0],guessIndex[1]] = int(newGuess)
-        if solved == prevSolved:
-            arr, solved = Guess(prevSolved, solved, arr)
+            
+        if solved != prevSolved:
+            continue
+        
+        arr, solved = Guess(prevSolved, solved, arr)
 
-            if solved == 81:
-                continue
+        if solved == 81:
+            continue
 
-            fails = fails + 1
-            solved = originalSolved
-            prevSolved = -1
-            badGuess = str(arr[guessIndex[0],guessIndex[1]])
-            arr = originalSave.copy()
-            guessSquare = str(arr[guessIndex[0],guessIndex[1]])
-            newGuess = removeChar(guessSquare, guessSquare.find(badGuess[0]))
-            if newGuess == '0':
-                return arr, solved
-            if fails >= len(guessSquare) - 1:
-                    return arr, solved
-            arr[guessIndex[0],guessIndex[1]] = int(newGuess)
+        fails = fails + 1
+        solved = originalSolved
+        prevSolved = -1
+        badGuess = str(arr[guessIndex[0],guessIndex[1]])
+        arr = originalSave.copy()
+        guessSquare = str(arr[guessIndex[0],guessIndex[1]])
+        newGuess = removeChar(guessSquare, guessSquare.find(badGuess[0]))
+        if newGuess == '0':
+            return arr, solved
+        if fails >= len(guessSquare) - 1:
+            return arr, solved
+        arr[guessIndex[0],guessIndex[1]] = int(newGuess)
 
     return arr, solved
 
