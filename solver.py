@@ -64,7 +64,7 @@ def Guess(prevSolved, solved, arr):
                 return arr, solved
             
             arr[guessIndex[0],guessIndex[1]] = int(newGuess)
-            
+
         if solved != prevSolved:
             continue
         
@@ -91,38 +91,16 @@ def Guess(prevSolved, solved, arr):
 
 def removeChar(s ,index):
     return s[:index] + s[index+1:]
-
-def getBounds(row, col):
-    if 0 <= row <= 2:
-        if 0 <= col <= 2:
-            return [[0,2],[0,2]]
-        elif 3 <= col <= 5:
-            return [[0,2],[3,5]]
-        elif 6 <= col <= 8:
-            return [[0,2],[6,8]]
-    elif 3 <= row <= 5:
-        if 0 <= col <= 2:
-            return [[3,5],[0,2]]
-        elif 3 <= col <= 5:
-            return [[3,5],[3,5]]
-        elif 6 <= col <= 8:
-            return [[3,5],[6,8]]
-    elif 6 <= row <= 8:
-        if 0 <= col <= 2:
-            return [[6,8],[0,2]]
-        elif 3 <= col <= 5:
-            return [[6,8],[3,5]]
-        elif 6 <= col <= 8:
-            return [[6,8],[6,8]]
     
-def elimArea(rowBound, colBound, val, arr):
-    # print(rowBound, colBound)
-    for row in range(rowBound[0],rowBound[1]+1):
-        for col in range(colBound[0],colBound[1]+1):
-            squareCheck = str(arr[row,col])
+def elimArea(rowS, colS, val, arr):
+    rowStart = rowS - (rowS % 3)
+    colStart = colS - (colS % 3)
+    for row in range(3):
+        for col in range(3):
+            squareCheck = str(arr[row + rowStart,col + colStart])
             if squareCheck.endswith('0') and squareCheck.find(val) != -1:
                 newSquare = removeChar(squareCheck, squareCheck.find(val))
-                arr[row,col] = int(newSquare)
+                arr[row + rowStart,col + colStart] = int(newSquare)
 
 def elimPossible(row, col, val, arr):
     square = str(arr[row,col])
@@ -140,8 +118,7 @@ def elimPossible(row, col, val, arr):
             arr[row,i] = int(newSquare)
 
     #check 3x3 areas
-    bounds = getBounds(row, col)
-    elimArea(bounds[0], bounds[1], val, arr)
+    elimArea(row, col, val, arr)
 
 if __name__ == '__main__':
 
