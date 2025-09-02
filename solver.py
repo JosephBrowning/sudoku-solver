@@ -21,13 +21,7 @@ def Guess(prevSolved, solved, arr):
     guessIndex = giveGuessIndex(arr)
     square = str(arr[guessIndex[0]][guessIndex[1]])
     
-    #guessNum = 0
-
     newSquare = square[0]+square[0]
-    print(guessIndex, guessIndex[0], guessIndex[1])
-    print(len(newSquare))
-    print('arr before guess', arr)
-    print('solved:', solved)
     arr[guessIndex[0],guessIndex[1]] = int(newSquare)
     #start guessing
     while solved != 81:
@@ -52,83 +46,33 @@ def Guess(prevSolved, solved, arr):
                     solved = originalSolved
                     prevSolved = -1
                     badGuess = str(arr[guessIndex[0],guessIndex[1]])
-                    print('badGuess',badGuess)
-                    print('originalGuess', guessIndex)
                     arr = originalSave.copy()
-                    print('arr',arr)
                     guessSquare = str(arr[guessIndex[0],guessIndex[1]])
-                    print(guessSquare)
                     newGuess = removeChar(guessSquare, guessSquare.find(badGuess[0]))
-                    print('newGuess', newGuess)
-                    print(len(newGuess))
                     if newGuess == '0':
                         return arr, solved
                     if fails >= len(guessSquare) - 1:
                         return arr, solved
                     arr[guessIndex[0],guessIndex[1]] = int(newGuess)
-                    # if len(newGuess) == 2:
-                    #     elimPossible(originalGuess[0],originalGuess[1],newGuess[0],arr)
-
-                    #     # make it len 1
-                    #     arr[originalGuess[0]][originalGuess[1]] = int(newGuess[0])
-                    
-                   # originalSave = arr.copy()
-                    
-                    ##originalGuess = giveGuessIndex(arr)
-                    
-                    #print(arr)
-                    
-                    # arr, solved = Guess(iterations, prevSolved, solved, arr)
-                    #return arr, solved
         if solved == prevSolved:
-            print('arr before guesss', arr)
             arr, solved = Guess(prevSolved, solved, arr)
             if solved != 81:
                 fails = fails + 1
                 solved = originalSolved
                 prevSolved = -1
                 badGuess = str(arr[guessIndex[0],guessIndex[1]])
-                print('badGuess',badGuess)
-                print('originalGuess', guessIndex)
                 arr = originalSave.copy()
-                print('arr',arr)
                 guessSquare = str(arr[guessIndex[0],guessIndex[1]])
-                print(guessSquare)
                 newGuess = removeChar(guessSquare, guessSquare.find(badGuess[0]))
-                print('newGuess', newGuess)
-                print(len(newGuess))
                 if newGuess == '0':
                     return arr, solved
                 if fails >= len(guessSquare) - 1:
                         return arr, solved
                 arr[guessIndex[0],guessIndex[1]] = int(newGuess)
 
-            # guessIndex = giveGuessIndex(arr)
-            # square = str(arr[guessIndex[0]][guessIndex[1]])
-            
-            # newSquare = square[0]+square[0]
-            # print(guessIndex, guessIndex[0], guessIndex[1])
-            # print(len(newSquare))
-            # print(arr)
-            # print('solved:', solved)
-            # arr[guessIndex[0],guessIndex[1]] = int(newSquare)
     return arr, solved
 
 
-#def guess(arr, prevSolved, solved):
-#   save = arr.copy()
-#   find the guess
-#   while(solved != 81):
-#       for row in range(9):
-            # for col in range(9):
-                # process square
-#       if solved == prevSolved:
-#           arr, solved = Guess(arr, prevSolved, solved)
-#           if solved != 81:
-#               process
-#               return arr, solved
-#   return arr, solved
-# #
 def removeChar(s ,index):
     return s[:index] + s[index+1:]
 
@@ -183,9 +127,6 @@ def elimPossible(row, col, val, arr):
     bounds = getBounds(row, col)
     elimArea(bounds[0], bounds[1], val, arr)
 
-def printTest():
-    print(arr)
-
 if __name__ == '__main__':
 
     f = open("testhard.txt", 'r')
@@ -207,14 +148,10 @@ if __name__ == '__main__':
                 arr[i][j] =  possibleVals + '0'
             elif 0 < int(puzzle[i][j]) < 10 : 
                 arr[i][j] = puzzle[i][j] + puzzle[i][j]
-    #print(arr)
-    print(str(arr[0][0])[0])
-    #printTest()
 
     #solve
     prevSolved = -1
     iterations = 0
-    # while solved != 81:
     while solved != prevSolved:
         iterations = iterations + 1
         prevSolved = solved
@@ -231,32 +168,8 @@ if __name__ == '__main__':
                         arr[row][col] = int(square[0])
 
                         solved = solved + 1
-                    # if square.endswith('0') == False and len(square) == 2:
-                    #     #confirmed square found, now remove from possible, change len to 1 and add 1 to solved
-                    #     elimPossible(row, col, square[0])
-
-                    #     # make it len 1
-                    #     arr[row][col] = int(square[0])
-                        
-                    #     solved = solved + 1
-                    # if square.endswith('0') == True and len(square) == 2:
-                    #     #unconfirmed square has only one possible, confirm it
-                        
-                    #     elimPossible(row,col,square[0])
-
-                    #     # make it len 1
-                    #     arr[row][col] = int(square[0])
-
-                    #     solved = solved + 1
-
-    # square = str(arr[7][1])
-    # elimPossible(7,1,square[0])
-    # arr[7][1] = int(square[0])
-    printTest()
-    print(solved)
-    print(iterations)
     fails = 0
     arr, solved = Guess(prevSolved,solved, arr)
-    printTest()
+    print(arr)
     print('solved: ', solved)
 
