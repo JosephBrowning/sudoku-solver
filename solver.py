@@ -13,6 +13,25 @@ def giveGuessIndex(arr):
                 ans = (row,col)
     return ans
 
+def solveConstraint(arr, solved):
+    error = 0
+    for row in range(9):
+        for col in range(9):
+            square = str(arr[row][col])
+            if len(square) == 2:
+                #unconfirmed square has only one possible, confirm it
+                
+                elimPossible(row,col,square[0],arr)
+
+                # make it len 1
+                arr[row][col] = int(square[0])
+
+                solved = solved + 1
+            elif len(square) < 1 or square == '0':
+                error = 1
+                return arr, solved, error
+    return arr, solved, error
+
 def Guess(prevSolved, solved, arr):
     originalSave = arr.copy()
     originalSolved = solved
@@ -26,49 +45,43 @@ def Guess(prevSolved, solved, arr):
     #start guessing
     while solved != 81:
         prevSolved = solved
-        for row in range(9):
-            for col in range(9):
-                square = str(arr[row][col])
-                if len(square) > 1:
-                    if len(square) == 2:
-                        #unconfirmed square has only one possible, confirm it
-                        
-                        elimPossible(row,col,square[0],arr)
+        arr, solved, error = solveConstraint(arr, solved)
+        #need to make it so the orignal save doesn't have the faulty guess
+        #uhh mabye put call to guess here so that it doesn't have to do another iteration
+        if error == 1:
+            fails = fails +1
+            solved = originalSolved
+            prevSolved = -1
+            badGuess = str(arr[guessIndex[0],guessIndex[1]])
+            arr = originalSave.copy()
+            guessSquare = str(arr[guessIndex[0],guessIndex[1]])
+            newGuess = removeChar(guessSquare, guessSquare.find(badGuess[0]))
 
-                        # make it len 1
-                        arr[row][col] = int(square[0])
-
-                        solved = solved + 1
-                elif len(square) < 1 or square == '0':
-                    #need to make it so the orignal save doesn't have the faulty guess
-                    #uhh mabye put call to guess here so that it doesn't have to do another iteration
-                    fails = fails +1
-                    solved = originalSolved
-                    prevSolved = -1
-                    badGuess = str(arr[guessIndex[0],guessIndex[1]])
-                    arr = originalSave.copy()
-                    guessSquare = str(arr[guessIndex[0],guessIndex[1]])
-                    newGuess = removeChar(guessSquare, guessSquare.find(badGuess[0]))
-                    if newGuess == '0':
-                        return arr, solved
-                    if fails >= len(guessSquare) - 1:
-                        return arr, solved
-                    arr[guessIndex[0],guessIndex[1]] = int(newGuess)
+            if newGuess == '0':
+                return arr, solved
+            
+            if fails >= len(guessSquare) - 1:
+                return arr, solved
+            
+            arr[guessIndex[0],guessIndex[1]] = int(newGuess)
         if solved == prevSolved:
             arr, solved = Guess(prevSolved, solved, arr)
-            if solved != 81:
-                fails = fails + 1
-                solved = originalSolved
-                prevSolved = -1
-                badGuess = str(arr[guessIndex[0],guessIndex[1]])
-                arr = originalSave.copy()
-                guessSquare = str(arr[guessIndex[0],guessIndex[1]])
-                newGuess = removeChar(guessSquare, guessSquare.find(badGuess[0]))
-                if newGuess == '0':
+
+            if solved == 81:
+                continue
+
+            fails = fails + 1
+            solved = originalSolved
+            prevSolved = -1
+            badGuess = str(arr[guessIndex[0],guessIndex[1]])
+            arr = originalSave.copy()
+            guessSquare = str(arr[guessIndex[0],guessIndex[1]])
+            newGuess = removeChar(guessSquare, guessSquare.find(badGuess[0]))
+            if newGuess == '0':
+                return arr, solved
+            if fails >= len(guessSquare) - 1:
                     return arr, solved
-                if fails >= len(guessSquare) - 1:
-                        return arr, solved
-                arr[guessIndex[0],guessIndex[1]] = int(newGuess)
+            arr[guessIndex[0],guessIndex[1]] = int(newGuess)
 
     return arr, solved
 
@@ -155,20 +168,9 @@ if __name__ == '__main__':
     while solved != prevSolved:
         iterations = iterations + 1
         prevSolved = solved
-        for row in range(9):
-            for col in range(9):
-                square = str(arr[row][col])
-                if len(square) > 1:
-                    if len(square) == 2:
-                        #unconfirmed square has only one possible, confirm it
-                        
-                        elimPossible(row,col,square[0],arr)
-
-                        # make it len 1
-                        arr[row][col] = int(square[0])
-
-                        solved = solved + 1
-    fails = 0
+        arr, solved, error = solveConstraint(arr, solved)
+        if error == 1:
+            print('invalid puzzle')
     arr, solved = Guess(prevSolved,solved, arr)
     print(arr)
     print('solved: ', solved)
